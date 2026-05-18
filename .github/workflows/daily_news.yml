@@ -1,0 +1,31 @@
+name: Daily News Briefing
+
+on:
+  schedule:
+    # 6:30 AM MST = 13:30 UTC (UTC is 7 hours ahead of MST)
+    - cron: '30 13 * * *'
+  workflow_dispatch:  # allows you to trigger it manually from GitHub for testing
+
+jobs:
+  send-briefing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic
+
+      - name: Run news briefing script
+        env:
+          ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_ADDRESS:        ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD:   ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL:      ${{ secrets.RECIPIENT_EMAIL }}
+        run: python daily_news.py
