@@ -1,4 +1,4 @@
-import anthropic
+import anthropic  # daily news briefing
 import smtplib
 import os
 from email.mime.multipart import MIMEMultipart
