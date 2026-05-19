@@ -3,7 +3,7 @@ name: Daily News Briefing
 on:
   schedule:
     # 6:30 AM MST = 13:30 UTC (UTC is 7 hours ahead of MST)
-    - cron: '30 13 * * *'
+    - cron: '30 12 * * *'
   workflow_dispatch:  # allows you to trigger it manually from GitHub for testing
 
 jobs:
